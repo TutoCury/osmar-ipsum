@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.originals.osmaripsum.enums.Frase;
@@ -16,7 +17,7 @@ import br.com.originals.osmaripsum.util.RandomUtil;
 public class HomeController
 {
 
-    @GetMapping
+    @GetMapping("/bemvindo")
     public MensagemHolder bemVindo()
     {
         return new MensagemHolder("Seja Bem Vindo");
@@ -40,6 +41,19 @@ public class HomeController
         }
 
         return new ParagrafoHolder(frases);
+    }
+
+    @GetMapping("/paragrafo/{quantidade}")
+    public List<ParagrafoHolder> geraParagrafos(@PathVariable Integer quantidade)
+    {
+        List<ParagrafoHolder> lista = new ArrayList<>();
+
+        for (int i = 0; i < quantidade; i++)
+        {
+            lista.add(geraParagrafo());
+        }
+
+        return lista;
     }
 
 }
